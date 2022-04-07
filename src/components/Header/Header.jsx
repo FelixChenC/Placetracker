@@ -32,7 +32,7 @@ const Header = ({
   const getTimezone = (lat, lng) => {
     axios
       .get(
-        `https://dev.virtualearth.net/REST/v1/TimeZone/${lat},${lng}?key=AuJDi3dMIRaDFrJOSvyMPXcIWYdXh-1TSXS4paQRRQjNIZBLv2rT2WSxId34O-Nm`
+        `https://dev.virtualearth.net/REST/v1/TimeZone/${lat},${lng}?key=${process.env.REACT_APP_BING_KEY}`
       )
       .then((res) => {
         const { data } = res;

@@ -39,7 +39,7 @@ const App = () => {
   }, []);
 
   const { isLoaded, loardError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBhg1oXsshhYU6o2EzFfEGHVMczvmd389k",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 

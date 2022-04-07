@@ -9,7 +9,7 @@ const Map = ({ coordinates }) => {
   return (
     <div style={{ height: "100%", width: "95%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyBhg1oXsshhYU6o2EzFfEGHVMczvmd389k" }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         yesIWantToUseGoogleMapApiInternals
         defaultCenter={coordinates}
         center={coordinates}
