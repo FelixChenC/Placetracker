@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { PageHeader, Input } from "antd";
 import { AimOutlined } from "@ant-design/icons";
+import "./Header.css";
 
 const { Search } = Input;
 
@@ -16,7 +17,7 @@ const Header = ({ places, setPlaces, getCurrentLocation, handleSearch }) => {
   };
 
   return (
-    <div style={{ margin: "20px" }}>
+    <div className="headerContainer">
       <PageHeader
         className="site-page-header"
         title="Track places"
@@ -45,9 +46,9 @@ const Header = ({ places, setPlaces, getCurrentLocation, handleSearch }) => {
               }
               value={places}
               onSearch={handleSearch}
-              style={{ margin: "0 1rem", width: "94.8vw" }}
+              className="searchBar"
             />
-            <div style={{ margin: " 0 1rem", width: "94.8vw" }}>
+            <div className="autocomplete">
               {loading && <div>Loading ...</div>}
               {suggestions.map((suggestion) => {
                 const style = suggestion.active

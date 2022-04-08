@@ -81,16 +81,9 @@ const App = () => {
   if (!isLoaded) return "Loading maps";
 
   return (
-    <Layout style={{ minHeight: "100vh", maxWidth: "100vw" }}>
+    <Layout className="container">
       {timeZoneId && (
-        <div
-          style={{
-            position: "absolute",
-            top: "4vh",
-            right: "3rem",
-            zIndex: "5",
-          }}
-        >
+        <div className="timeContainer">
           <div>{timeZoneId}</div>
           <div>{localTime}</div>
         </div>
@@ -101,12 +94,12 @@ const App = () => {
         getCurrentLocation={getCurrentLocation}
         handleSearch={handleSearch}
       />
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "30vw", height: "80vh", margin: "0 1rem" }}>
+      <div className="placesContainer">
+        <div className="tableContainer">
           <PlaceTable />
         </div>
 
-        <div style={{ width: "70vw", height: "80vh", marginLeft: "1rem" }}>
+        <div className="mapContainer">
           <Map coordinates={coordinates} />
         </div>
       </div>
