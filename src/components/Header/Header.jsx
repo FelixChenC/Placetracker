@@ -1,26 +1,12 @@
-import React, { useEffect, useContext } from "react";
-import axios from "axios";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+import React from "react";
+import propTypes from "prop-types";
+import PlacesAutocomplete from "react-places-autocomplete";
 import { PageHeader, Input } from "antd";
 import { AimOutlined } from "@ant-design/icons";
-import { PlacesContext } from "../../contexts/PlacesContext";
 
 const { Search } = Input;
 
-const Header = ({
-  places,
-  setPlaces,
-  searchPlaces,
-  setSearchPlaces,
-  getCurrentLocation,
-  setCoordinates,
-  setTimeZoneId,
-}) => {
-  const { dispatch } = useContext(PlacesContext);
-
+const Header = ({ places, setPlaces, getCurrentLocation, handleSearch }) => {
   const handleChange = async (value) => {
     setPlaces(value);
   };
@@ -28,37 +14,6 @@ const Header = ({
   const handleSelect = async (value) => {
     setPlaces(value);
   };
-
-  const getTimezone = (lat, lng) => {
-    axios
-      .get(
-        `https://dev.virtualearth.net/REST/v1/TimeZone/${lat},${lng}?key=${process.env.REACT_APP_BING_KEY}`
-      )
-      .then((res) => {
-        const { data } = res;
-        setTimeZoneId(
-          data.resourceSets[0].resources[0].timeZone.ianaTimeZoneId
-        );
-      });
-  };
-
-  const handleSearch = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-    setCoordinates(latLng);
-    const searchInput = { place: value };
-    setSearchPlaces([...searchPlaces, searchInput]);
-    getTimezone(latLng.lat, latLng.lng);
-    dispatch({
-      type: "ADD_PLACE",
-      place: value,
-      coord: latLng,
-    });
-  };
-
-  useEffect(() => {
-    localStorage.setItem("places", JSON.stringify(searchPlaces));
-  }, [searchPlaces]);
 
   return (
     <div style={{ margin: "20px" }}>
@@ -83,7 +38,7 @@ const Header = ({
               size="large"
               suffix={
                 <AimOutlined
-                  onClick={(e) => {
+                  onClick={() => {
                     getCurrentLocation();
                   }}
                 />
@@ -99,7 +54,10 @@ const Header = ({
                   ? { backgroundColor: "#1890ff", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
                 return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                  <div
+                    {...getSuggestionItemProps(suggestion, { style })}
+                    key={suggestion.description}
+                  >
                     {suggestion.description}
                   </div>
                 );

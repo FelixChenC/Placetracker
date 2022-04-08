@@ -2,18 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { Table, Button } from "antd";
 import { PlacesContext } from "../../contexts/PlacesContext";
 
-const columns = [
-  {
-    title: "Place",
-    dataIndex: "place",
-  },
-];
-
-const PlaceTable = ({ searchPlaces }) => {
+const PlaceTable = () => {
   const [selectedPlace, setSelectedPlace] = useState([]);
-  const { places } = useContext(PlacesContext);
+  const { places, dispatch } = useContext(PlacesContext);
   const [data, setData] = useState(places);
-  const { dispatch } = useContext(PlacesContext);
+
+  const columns = [
+    {
+      title: "Place",
+      dataIndex: "place",
+      key: "key",
+    },
+  ];
 
   const rowSelection = {
     onChange: (selectedRowKeys) => {
